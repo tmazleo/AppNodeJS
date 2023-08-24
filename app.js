@@ -7,11 +7,27 @@ const app = express();
 const admin = require("./routes/admin")
 const path = require("path") //para usar os arquivos statics
 const mongoose = require("mongoose");
+const session = require("express-session")
+const flash = require("connect-flash")
 
 //config
+    //session
+    app.use(session({
+        secret: "cursodenode",
+        resave: true,
+        saveUninitialized: true
+    }))
+    app.use(flash())
+    //midleware
+    app.use((req, res, next) => {
+        res.locals.success_msg = req.flash("success_msg")
+        res.locals.error_,sg = req.flash("error_msg")
+        next()
+    })
     //boyparser
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
+
     //handlebars
     app.engine('handlebars', handlebars.engine({defaultLayout: 'main',runtimeOptions: {
         allowProtoPropertiesByDefault: true,allowProtoMethodsByDefault: true,
