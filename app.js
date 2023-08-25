@@ -9,16 +9,16 @@ const path = require("path") //para usar os arquivos statics
 const mongoose = require("mongoose");
 
 //config
-    //boyparser
+    //boyparser - conversão de dados
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
-    //handlebars
+    //handlebars - biblioteca para html
     app.engine('handlebars', handlebars.engine({defaultLayout: 'main',runtimeOptions: {
         allowProtoPropertiesByDefault: true,allowProtoMethodsByDefault: true,
         }
         }));
     app.set('view engine', 'handlebars');
-    //mongoose
+    //mongoose - conexão mongo db
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://127.0.0.1:27017/blogapp', {
         useNewUrlParser: true,
